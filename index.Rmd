@@ -1,0 +1,22 @@
+---
+title: "日本認知心理学会・研究法研究部会・第一回MDSの巻"
+output: html_document
+---
+
+## 研究法研究部会 第1回研究会
+### MDS，使ってる？――心理学研究における応用可能性――
+
++ 日程：2019年  3月3日(日)  13:00〜17:00
+
+
+### お品がき
+
+####  MDSの基礎
+
++ 距離/行列の分解/YH定理/Torgason，Kruskal
+
+#### MDSの応用
+
++ 個人差を表現する方法（INDSCAL） 
++ 地図に情報を描き加える方法（PREFMAP, Abelson Mappingなど） 
++ 非対称関係に拡張する方法（HFM, Asymmetric von Mises Scalingなど） 
