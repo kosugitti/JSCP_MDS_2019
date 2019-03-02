@@ -26,5 +26,13 @@ output: html_document
 
 ### 使用するデータ
 
-+ [こちらからまとめてzipファイルをダウンロードできます。](sampleData.zip)
++ 使用するパッケージを次のコードでインストールしておいてください。
+
+```{r eval=F}
+install.packages(MASS)
+install.packages(tidyverse)
+install.packages(ggrepel)
+install.packages(somacof)
+```
++ [データとRmdファイルはこちらからまとめてzipファイルをダウンロードできます。](sampleData.zip)
 
