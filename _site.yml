@@ -1,6 +1,6 @@
 name: "日本認知心理学会・研究法研究部会・第一回MDSの巻"
 navbar: 
-  title: "日本認知心理学会・研究法研究部会・第一回MDSの巻"
+  title: "第一回MDSの巻"
   left:
     - text: "導入"
       href: Lesson1.html
