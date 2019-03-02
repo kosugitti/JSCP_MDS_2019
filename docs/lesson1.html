@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lesson1</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="site_style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">日本認知心理学会・研究法研究部会・第一回MDSの巻</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Lesson1.html">導入</a>
+</li>
+<li>
+  <a href="Lesson2.html">応用</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lesson1</h1>
+
+</div>
+
+
+<pre class="r"><code># 必須ツール
+library(tidyverse)</code></pre>
+<pre><code>## ─ Attaching packages ────</code></pre>
+<pre><code>## ✔ ggplot2 3.1.0       ✔ purrr   0.3.0  
+## ✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
+## ✔ tidyr   0.8.2       ✔ stringr 1.4.0  
+## ✔ readr   1.3.1       ✔ forcats 0.4.0</code></pre>
+<pre><code>## ─ Conflicts ─────────
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code># ラベルの重複を避けるパッケージ
+library(ggrepel)
+# マカーの呪文
+old = theme_set(theme_gray(base_family = &quot;HiraKakuProN-W3&quot;))</code></pre>
+<div id="section" class="section level2">
+<h2>具体例</h2>
+<p>ヨーロッパ都市間の距離データ(Rのデフォルト)を使います</p>
+<pre class="r"><code>eurodist</code></pre>
+<pre><code>##                 Athens Barcelona Brussels Calais Cherbourg Cologne
+## Barcelona         3313                                            
+## Brussels          2963      1318                                  
+## Calais            3175      1326      204                         
+## Cherbourg         3339      1294      583    460                  
+## Cologne           2762      1498      206    409       785        
+## Copenhagen        3276      2218      966   1136      1545     760
+## Geneva            2610       803      677    747       853    1662
+## Gibraltar         4485      1172     2256   2224      2047    2436
+## Hamburg           2977      2018      597    714      1115     460
+## Hook of Holland   3030      1490      172    330       731     269
+## Lisbon            4532      1305     2084   2052      1827    2290
+## Lyons             2753       645      690    739       789     714
+## Madrid            3949       636     1558   1550      1347    1764
+## Marseilles        2865       521     1011   1059      1101    1035
+## Milan             2282      1014      925   1077      1209     911
+## Munich            2179      1365      747    977      1160     583
+## Paris             3000      1033      285    280       340     465
+## Rome               817      1460     1511   1662      1794    1497
+## Stockholm         3927      2868     1616   1786      2196    1403
+## Vienna            1991      1802     1175   1381      1588     937
+##                 Copenhagen Geneva Gibraltar Hamburg Hook of Holland Lisbon
+## Barcelona                                                                 
+## Brussels                                                                  
+## Calais                                                                    
+## Cherbourg                                                                 
+## Cologne                                                                   
+## Copenhagen                                                                
+## Geneva                1418                                                
+## Gibraltar             3196   1975                                         
+## Hamburg                460   1118      2897                               
+## Hook of Holland        269    895      2428     550                       
+## Lisbon                2971   1936       676    2671            2280       
+## Lyons                 1458    158      1817    1159             863   1178
+## Madrid                2498   1439       698    2198            1730    668
+## Marseilles            1778    425      1693    1479            1183   1762
+## Milan                 1537    328      2185    1238            1098   2250
+## Munich                1104    591      2565     805             851   2507
+## Paris                 1176    513      1971     877             457   1799
+## Rome                  2050    995      2631    1751            1683   2700
+## Stockholm              650   2068      3886     949            1500   3231
+## Vienna                1455   1019      2974    1155            1205   2937
+##                 Lyons Madrid Marseilles Milan Munich Paris Rome Stockholm
+## Barcelona                                                                
+## Brussels                                                                 
+## Calais                                                                   
+## Cherbourg                                                                
+## Cologne                                                                  
+## Copenhagen                                                               
+## Geneva                                                                   
+## Gibraltar                                                                
+## Hamburg                                                                  
+## Hook of Holland                                                          
+## Lisbon                                                                   
+## Lyons                                                                    
+## Madrid           1281                                                    
+## Marseilles        320   1157                                             
+## Milan             328   1724        618                                  
+## Munich            724   2010       1109   331                            
+## Paris             471   1273        792   856    821                     
+## Rome             1048   2097       1011   586    946  1476               
+## Stockholm        2108   3188       2428  2187   1754  1827 2707          
+## Vienna           1157   2409       1363   898    428  1249 1209      2105</code></pre>
+<p>メトリックなMDSで分析</p>
+<pre class="r"><code># MDSの関数
+result.MDS1 &lt;- cmdscale(eurodist,k=3)
+# 結果と描画
+result.MDS1 %&gt;% as.data.frame %&gt;% 
+  dplyr::mutate(label=rownames(.)) %&gt;% 
+  ggplot(aes(x=V1,y=V2,label=label))+geom_point()+geom_text_repel()+
+  xlim(-2500,2500)+ylim(-2500,2500)+xlab(&quot;dim 1&quot;)+ylab(&quot;dim2&quot;)</code></pre>
+<p><img src="lesson1_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>南北反転？</p>
+<pre class="r"><code># y軸反転
+result.MDS1 %&gt;% as.data.frame %&gt;% 
+  dplyr::mutate(label=rownames(.)) %&gt;% 
+  ggplot(aes(x=V1,y=V2,label=label))+geom_point()+geom_text_repel()+
+  xlim(-2500,2500)+ylim(2500,-2500)+xlab(&quot;dim 1&quot;)+ylab(&quot;dim2&quot;)</code></pre>
+<p><img src="lesson1_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="section-1" class="section level2">
+<h2>距離の関数</h2>
+<p>サンプルデータ（あやめ）</p>
+<pre class="r"><code>iris[,-5] %&gt;% head()</code></pre>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5.1</td>
+<td align="right">3.5</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="even">
+<td align="right">4.9</td>
+<td align="right">3.0</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="odd">
+<td align="right">4.7</td>
+<td align="right">3.2</td>
+<td align="right">1.3</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="even">
+<td align="right">4.6</td>
+<td align="right">3.1</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="odd">
+<td align="right">5.0</td>
+<td align="right">3.6</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="even">
+<td align="right">5.4</td>
+<td align="right">3.9</td>
+<td align="right">1.7</td>
+<td align="right">0.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r"><code># ユークリッド距離
+iris[,-5] %&gt;% head() %&gt;% dist()</code></pre>
+<pre><code>##           1         2         3         4         5
+## 2 0.5385165                                        
+## 3 0.5099020 0.3000000                              
+## 4 0.6480741 0.3316625 0.2449490                    
+## 5 0.1414214 0.6082763 0.5099020 0.6480741          
+## 6 0.6164414 1.0908712 1.0862780 1.1661904 0.6164414</code></pre>
+<pre class="r"><code># マンハッタン距離
+iris[,-5] %&gt;% head() %&gt;% dist(method=&quot;manhattan&quot;)</code></pre>
+<pre><code>##     1   2   3   4   5
+## 2 0.7                
+## 3 0.8 0.5            
+## 4 1.0 0.5 0.4        
+## 5 0.2 0.7 0.8 1.0    
+## 6 1.2 1.9 2.0 2.0 1.2</code></pre>
+<pre class="r"><code># ミンコフスキー距離
+iris[,-5] %&gt;% head() %&gt;% dist(method=&quot;minkowski&quot;,p=3)</code></pre>
+<pre><code>##           1         2         3         4         5
+## 2 0.5104469                                        
+## 3 0.4514357 0.2571282                              
+## 4 0.5748897 0.3072317 0.2154435                    
+## 5 0.1259921 0.6009245 0.4514357 0.5748897          
+## 6 0.5013298 0.9615398 0.9117793 1.0131594 0.5013298</code></pre>
+</div>
+<div id="mds" class="section level2">
+<h2>非計量MDSの例</h2>
+<div id="m-12019" class="section level3">
+<h3>データ；M-1グランプリ2019の採点結果より</h3>
+<pre class="r"><code>M1_2018 &lt;- matrix(c(85,88,88,99,86,87,89,97,93,93,
+                    85,89,92,93,89,82,90,93,98,94,
+                    88,89,94,88,89,84,98,86,97,98,
+                    83,85,90,92,86,80,88,91,94,93,
+                    91,90,92,93,90,91,93,90,96,94,
+                    88,87,89,93,87,84,90,87,93,92,
+                    86,89,91,90,87,86,90,89,91,92),ncol=7)
+row.names(M1_2018) &lt;- c(&quot;見取り図&quot;,
+                        &quot;スーパーマラドーナ&quot;,
+                        &quot;かまいたち&quot;,
+                        &quot;ジャルジャル&quot;,
+                        &quot;ギャロップ&quot;,
+                        &quot;ゆにばーす&quot;,
+                        &quot;ミキ&quot;,
+                        &quot;トム・ブラウン&quot;,
+                        &quot;霜降り明星&quot;,
+                        &quot;和牛&quot;)
+colnames(M1_2018) &lt;- c(&quot;立川志らく&quot;,
+                        &quot;塙宣之&quot;,
+                        &quot;上沼恵美子&quot;,
+                        &quot;松本人志&quot;,
+                        &quot;中川礼二&quot;,
+                        &quot;オール巨人&quot;,
+                        &quot;富澤たけし&quot;)
+dist_M1 &lt;- dist(M1_2018)
+# 距離データ表示
+dist_M1</code></pre>
+<pre><code>##                     見取り図 スーパーマラドーナ かまいたち ジャルジャル
+## スーパーマラドーナ  6.403124                                           
+## かまいたち         13.038405           8.426150                        
+## ジャルジャル       19.646883          15.264338  13.416408             
+## ギャロップ          5.477226           3.000000   8.831761    16.613248
+## ゆにばーす          7.348469          10.908712  18.761663    22.934690
+## ミキ               13.784049          10.535654   5.291503    15.297059
+## トム・ブラウン     16.941074          11.916375  12.609520     7.416198
+## 霜降り明星         22.583180          18.083141  10.862780    12.489996
+## 和牛               20.149442          15.652476   8.246211    12.000000
+##                    ギャロップ ゆにばーす      ミキ トム・ブラウン
+## スーパーマラドーナ                                               
+## かまいたち                                                       
+## ジャルジャル                                                     
+## ギャロップ                                                       
+## ゆにばーす          11.045361                                    
+## ミキ                11.045361  19.595918                         
+## トム・ブラウン      13.228757  19.104973 15.652476               
+## 霜降り明星          18.601075  28.071338 11.661904      15.716234
+## 和牛                16.431677  25.573424  8.124038      14.662878
+##                    霜降り明星
+## スーパーマラドーナ           
+## かまいたち                   
+## ジャルジャル                 
+## ギャロップ                   
+## ゆにばーす                   
+## ミキ                         
+## トム・ブラウン               
+## 霜降り明星                   
+## 和牛                 4.898979</code></pre>
+</div>
+</div>
+<div id="isomds" class="section level2">
+<h2>分析；isoMDS関数の例</h2>
+<pre class="r"><code>library(MASS)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     select</code></pre>
+<pre class="r"><code>result.MDS2 &lt;- isoMDS(dist_M1,k=2)</code></pre>
+<pre><code>## initial  value 1.421320 
+## iter   5 value 0.721192
+## iter  10 value 0.195694
+## iter  15 value 0.100712
+## iter  20 value 0.074457
+## iter  25 value 0.050977
+## iter  30 value 0.029949
+## iter  35 value 0.018306
+## iter  40 value 0.015114
+## iter  45 value 0.013833
+## iter  50 value 0.013671
+## final  value 0.013671 
+## stopped after 50 iterations</code></pre>
+<div id="section-2" class="section level3">
+<h3>ストレスの減衰</h3>
+<pre class="r"><code>ST &lt;- c()
+for(i in 1:9){
+  ST[i] &lt;- isoMDS(dist_M1,k=i)$stress
+}</code></pre>
+<pre><code>## initial  value 20.382952 
+## final  value 19.061340 
+## converged
+## initial  value 1.421320 
+## iter   5 value 0.721192
+## iter  10 value 0.195694
+## iter  15 value 0.100712
+## iter  20 value 0.074457
+## iter  25 value 0.050977
+## iter  30 value 0.029949
+## iter  35 value 0.018306
+## iter  40 value 0.015114
+## iter  45 value 0.013833
+## iter  50 value 0.013671
+## final  value 0.013671 
+## stopped after 50 iterations
+## initial  value 0.312984 
+## iter   5 value 0.036142
+## final  value 0.000000 
+## converged
+## initial  value 0.000000 
+## final  value 0.000000 
+## converged
+## initial  value 0.006260 
+## final  value 0.000000 
+## converged
+## initial  value 0.014944 
+## final  value 0.000000 
+## converged
+## initial  value 0.000000 
+## final  value 0.000000 
+## converged
+## initial  value 0.000000 
+## final  value 0.000000 
+## converged
+## initial  value 0.000000 
+## final  value 0.000000 
+## converged</code></pre>
+<pre class="r"><code>plot(ST,type=&quot;b&quot;)</code></pre>
+<p><img src="lesson1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="section-3" class="section level3">
+<h3>結果</h3>
+<pre class="r"><code>result.MDS2$points %&gt;% as.data.frame %&gt;% 
+  dplyr::mutate(label=rownames(.)) %&gt;% 
+  ggplot(aes(x=V1,y=V2,label=label))+geom_point()+
+  geom_text_repel(family = &quot;HiraKakuProN-W3&quot;)+
+  xlim(-15,15) + ylim(-15,15)+
+  xlab(&quot;dim 1&quot;)+ylab(&quot;dim2&quot;) </code></pre>
+<p><img src="lesson1_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="mds-1" class="section level3">
+<h3>列データのMDS</h3>
+<pre class="r"><code>result.MDS3 &lt;- dist(t(M1_2018)) %&gt;% isoMDS()</code></pre>
+<pre><code>## initial  value 11.739729 
+## iter   5 value 3.554095
+## iter  10 value 0.528016
+## iter  15 value 0.152710
+## iter  20 value 0.051220
+## final  value 0.006151 
+## converged</code></pre>
+<pre class="r"><code>result.MDS3$points %&gt;% as.data.frame %&gt;% 
+  dplyr::mutate(label=rownames(.)) %&gt;% 
+  ggplot(aes(x=V1,y=V2,label=label))+geom_point()+
+  geom_text_repel(family = &quot;HiraKakuProN-W3&quot;)+
+  xlim(-12,12) + ylim(-12,12)+
+  xlab(&quot;dim 1&quot;)+ylab(&quot;dim2&quot;) </code></pre>
+<p><img src="lesson1_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

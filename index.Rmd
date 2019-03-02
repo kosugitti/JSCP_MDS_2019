@@ -13,7 +13,10 @@ output: html_document
 
 ####  MDSの基礎
 
-+ 距離/行列の分解/YH定理/Torgason，Kruskal
++ MDSの特徴と長短所
++ あらためて「距離」とは？
++ YH定理と計量的(Metric)MDS
++ 非計量的(Non-Metric)MDS
 
 #### MDSの応用
 

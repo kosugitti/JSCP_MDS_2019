@@ -1,0 +1,224 @@
+---
+title: "Lesson2"
+output: html_document
+---
+
+```{r libraries,echo=T,include=T}
+# 必須ツール
+library(tidyverse)
+# ラベルの重複を避けるパッケージ
+library(ggrepel)
+# マカーの呪文
+old = theme_set(theme_gray(base_family = "HiraKakuProN-W3"))
+par(family = "HiraKakuProN-W3")
+```
+
+## INDSCALの例
+
+### データの読み込み
+
+```{r,message=F}
+# 30F
+m1 <- read_csv("matrix1.csv") %>% as.matrix
+# 60M
+m2 <- read_csv("matrix2.csv") %>% as.matrix
+# 50F
+m3 <- read_csv("matrix3.csv") %>% as.matrix
+# 40F
+m4 <- read_csv("matrix4.csv") %>% as.matrix
+# 50M
+m5 <- read_csv("matrix5.csv") %>% as.matrix
+## 行列を合わせます
+M <- list(m1,m2,m3,m4,m5)
+```
+
+### INDSCALの実行
+
+```{r}
+library(smacof)
+result.indscal <- smacofIndDiff(M,ndim=2,type="ordinal",
+                                constraint="indscal")
+
+# 描画
+result.indscal$gspace %>% as.data.frame %>% 
+  mutate(label = colnames(m1)) %>% 
+  ggplot(aes(x=D1,y=D2,label=label))+geom_point()+geom_text_repel()
+
+# 重み付け
+result.indscal$cweights
+```
+
+## Prefmapの例
+
+### M-1のMDS布置をつかいます。
+
+```{r,include=FALSE}
+M1_2018 <- matrix(c(85,88,88,99,86,87,89,97,93,93,
+                    85,89,92,93,89,82,90,93,98,94,
+                    88,89,94,88,89,84,98,86,97,98,
+                    83,85,90,92,86,80,88,91,94,93,
+                    91,90,92,93,90,91,93,90,96,94,
+                    88,87,89,93,87,84,90,87,93,92,
+                    86,89,91,90,87,86,90,89,91,92),ncol=7)
+row.names(M1_2018) <- c("見取り図",
+                        "スーパーマラドーナ",
+                        "かまいたち",
+                        "ジャルジャル",
+                        "ギャロップ",
+                        "ゆにばーす",
+                        "ミキ",
+                        "トム・ブラウン",
+                        "霜降り明星",
+                        "和牛")
+colnames(M1_2018) <- c("立川志らく",
+                        "塙宣之",
+                        "上沼恵美子",
+                        "松本人志",
+                        "中川礼二",
+                        "オール巨人",
+                        "富澤たけし")
+dist_M1 <- dist(M1_2018)
+library(MASS)
+result.MDS2 <- isoMDS(dist_M1,k=2)
+```
+
+### Prefmapの関数はないので手計算
+
+```{r}
+## MDSの座標
+result.MDS2$points
+## データフレームにして操作
+result.MDS2$points %>% data.frame %>% 
+  # 変数名を作成
+  mutate(Player=rownames(.)) %>% 
+  # 個人の選好を追加
+  mutate(Pref=c(70,80,85,90,70,60,90,50,70,85)) %>% 
+  # 第一項のために二乗和を計算
+  mutate(XX = X1^2+X2^2) %>% print -> PrefData
+
+## 回帰分析で係数を算出
+result.lm <- lm(Pref~XX+X1+X2,data=PrefData)
+summary(result.lm)
+## 係数を使って計算
+Ideal <- c(-0.5*0.590379/(-0.05087315),-0.5*(-0.8681056)/(-0.05087315))
+
+## 描画
+PrefData %>% 
+  ggplot(aes(x=X1,y=X2,label=Player)) + geom_point() + 
+  xlim(-15,15) + ylim(-15,15) +   geom_text_repel(family= "HiraKakuProN-W3") +
+  geom_point(aes(x=Ideal[1],y=Ideal[2],color="red"))
+```
+
+## Abelson mapの例
+
+### Abelson mapもパッケージがないので自作
+
+```{r Abelson}
+# 自作関数Abelson.map
+Abelson.map <- function(dat,locations){
+  z <- double()
+  X <- dat[,1]
+  Y <- dat[,2]
+  P <- dat[,3]
+  un <- matrix(1,nrow(locations),1,)
+  Xs <- un %*% X
+  Ys <- un %*% Y
+  dm <- ((locations[,1]-Xs)^2+(locations[,2]-Ys)^2+1)
+  V <- t(P %*% (1/t(dm)))
+  xx <- sort(unique(locations[,1]))
+  nx <- length(xx)
+  yy <- sort(unique(locations[,2]))
+  ny <- length(yy)
+  values <- matrix(V,ncol=ny)
+  ret <- structure(list(x=xx,y=yy,valence=values))
+  return(ret)
+}
+```
+
+### 適用例
+
+```{r}
+##　空間全体の座標を作成
+loc <- expand.grid(seq(-15,15,0.1),seq(-15,15,0.1))
+## x,y,Vの座標をデータとする
+result.MDS2$points %>% data.frame %>% 
+  # 個人の選好を追加
+  mutate(Pref=c(70,80,85,90,70,60,90,50,70,85)-75) -> abDat
+ab <- Abelson.map(abDat,loc)
+image(x=ab$x, y=ab$y,z=ab$valence)
+contour(x=ab$x,y=ab$y,z=ab$valence,add=TRUE,drawlabels=T)
+par(family = "HiraKakuProN-W3")
+text(result.MDS2$points,rownames(result.MDS2$points))
+```
+
+## 非対称MDSの世界
+
+### HFMの場合
+
+```{r HF}
+Asym <- matrix(c(0,1,1,7,1,0,1,7,7,7,0,1,1,1,7,0),nrow=4,byrow=T)
+# 非対称行列
+Asym
+# 対称部
+(Asym+t(Asym))/2
+# 歪対称部
+(Asym-t(Asym))/2
+```
+
+
+```{r HFM自作関数}
+###############################
+# HFM
+#
+hfm<-function(data)
+{
+  if(!is.matrix(data))            #行列形式でなければ行列形式にしてしまう
+    data <- as.matrix(data)
+  if(ncol(data)!=nrow(data))      #正方行列かどうかのチェック
+    stop("data is not a square matrix")
+  
+  #エルミート化
+  s <- (data+t(data))/2
+  sk <- (data-t(data))/2
+  Her <- matrix(complex(re=s,im=sk),ncol=ncol(s))
+  rownames(Her) <- colnames(data)
+  colnames(Her) <- colnames(data)
+  
+  #固有値分解
+  eval <- eigen(Her)$values
+  evec <-eigen(Her)$vectors
+  rownames(evec) <- colnames(data)
+  #絶対値の順に並べ替え
+  od <- abs(eval)
+  eval <- eval[order(od,decreasing=TRUE)]
+  evec <- evec[,order(od,decreasing=TRUE)]
+  #寄与率の算出
+  gof   <-eval*eval / (t(eval)%*%eval) 
+  
+  return(list(Hermitian =Her ,Eigen=eval,GOF=gof,Vecs=evec))
+  
+}
+
+hfm.plot <-function(data,dim,Xlim=c(-1,1),Ylim=c(-1,1))
+{
+  plot(data$Vecs[,dim],
+       main=paste("Dim", dim, "with Eigenvalue" ,round(data$Eigen[dim],3)),
+       xlab="real",    #Xラベル
+       ylab="imag",  #Yラベル
+       xlim=Xlim,  #X範囲
+       ylim=Ylim,  #Y範囲
+       axes=F)
+  axis(1, pos = 0, at = -3:3, adj = 0, col = 1) #  X 軸を描く
+  axis(2, pos = 0, at = -3:3, adj = 1, las = 2) #  Y 軸を描く
+  for( i in seq(along = data$Vecs[,dim]))
+    arrows(0,0,Re(data$Vecs[i,dim]),Im(data$Vecs[i,dim]))
+  text(data$Vecs[,dim],rownames(data$Vecs))
+}
+```
+
+### 自作関数を使っての実践
+```{r}
+result <- hfm(Asym)
+result
+hfm.plot(result,dim=1,Xlim=c(-0.5,0.5),Ylim=c(-0.5,0.5))
+```

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lesson2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="site_style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">日本認知心理学会・研究法研究部会・第一回MDSの巻</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Lesson1.html">導入</a>
+</li>
+<li>
+  <a href="Lesson2.html">応用</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lesson2</h1>
+
+</div>
+
+
+<pre class="r"><code># 必須ツール
+library(tidyverse)
+# ラベルの重複を避けるパッケージ
+library(ggrepel)
+# マカーの呪文
+old = theme_set(theme_gray(base_family = &quot;HiraKakuProN-W3&quot;))
+par(family = &quot;HiraKakuProN-W3&quot;)</code></pre>
+<div id="indscal" class="section level2">
+<h2>INDSCALの例</h2>
+<div id="section" class="section level3">
+<h3>データの読み込み</h3>
+<pre class="r"><code># 30F
+m1 &lt;- read_csv(&quot;matrix1.csv&quot;) %&gt;% as.matrix
+# 60M
+m2 &lt;- read_csv(&quot;matrix2.csv&quot;) %&gt;% as.matrix
+# 50F
+m3 &lt;- read_csv(&quot;matrix3.csv&quot;) %&gt;% as.matrix
+# 40F
+m4 &lt;- read_csv(&quot;matrix4.csv&quot;) %&gt;% as.matrix
+# 50M
+m5 &lt;- read_csv(&quot;matrix5.csv&quot;) %&gt;% as.matrix
+## 行列を合わせます
+M &lt;- list(m1,m2,m3,m4,m5)</code></pre>
+</div>
+<div id="indscal-1" class="section level3">
+<h3>INDSCALの実行</h3>
+<pre class="r"><code>library(smacof)</code></pre>
+<pre><code>## Loading required package: plotrix</code></pre>
+<pre><code>## 
+## Attaching package: &#39;smacof&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     transform</code></pre>
+<pre class="r"><code>result.indscal &lt;- smacofIndDiff(M,ndim=2,type=&quot;ordinal&quot;,
+                                constraint=&quot;indscal&quot;)
+
+# 描画
+result.indscal$gspace %&gt;% as.data.frame %&gt;% 
+  mutate(label = colnames(m1)) %&gt;% 
+  ggplot(aes(x=D1,y=D2,label=label))+geom_point()+geom_text_repel()</code></pre>
+<p><img src="lesson2_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code># 重み付け
+result.indscal$cweights</code></pre>
+<pre><code>## [[1]]
+##          D1        D2
+## D1 1.211163 0.0000000
+## D2 0.000000 0.8236638
+## 
+## [[2]]
+##          D1        D2
+## D1 1.261578 0.0000000
+## D2 0.000000 0.7443671
+## 
+## [[3]]
+##         D1        D2
+## D1 1.13886 0.0000000
+## D2 0.00000 0.9356096
+## 
+## [[4]]
+##          D1       D2
+## D1 0.926639 0.000000
+## D2 0.000000 1.150412
+## 
+## [[5]]
+##           D1       D2
+## D1 0.7511285 0.000000
+## D2 0.0000000 1.297436</code></pre>
+</div>
+</div>
+<div id="prefmap" class="section level2">
+<h2>Prefmapの例</h2>
+<div id="m-1mds" class="section level3">
+<h3>M-1のMDS布置をつかいます。</h3>
+</div>
+<div id="prefmap-1" class="section level3">
+<h3>Prefmapの関数はないので手計算</h3>
+<pre class="r"><code>## MDSの座標
+result.MDS2$points</code></pre>
+<pre><code>##                          [,1]      [,2]
+## 見取り図           -10.291244 -1.033167
+## スーパーマラドーナ  -5.352259 -1.309168
+## かまいたち           2.318421 -3.477969
+## ジャルジャル         6.594532  8.970730
+## ギャロップ          -5.384316 -1.385389
+## ゆにばーす         -14.763725  1.082202
+## ミキ                 2.944927 -6.357326
+## トム・ブラウン       1.664326  9.348709
+## 霜降り明星          11.982873 -2.594123
+## 和牛                10.286466 -3.244500</code></pre>
+<pre class="r"><code>## データフレームにして操作
+result.MDS2$points %&gt;% data.frame %&gt;% 
+  # 変数名を作成
+  mutate(Player=rownames(.)) %&gt;% 
+  # 個人の選好を追加
+  mutate(Pref=c(70,80,85,90,70,60,90,50,70,85)) %&gt;% 
+  # 第一項のために二乗和を計算
+  mutate(XX = X1^2+X2^2) %&gt;% print -&gt; PrefData</code></pre>
+<pre><code>##            X1        X2             Player Pref        XX
+## 1  -10.291244 -1.033167           見取り図   70 106.97714
+## 2   -5.352259 -1.309168 スーパーマラドーナ   80  30.36059
+## 3    2.318421 -3.477969         かまいたち   85  17.47135
+## 4    6.594532  8.970730       ジャルジャル   90 123.96184
+## 5   -5.384316 -1.385389         ギャロップ   70  30.91016
+## 6  -14.763725  1.082202         ゆにばーす   60 219.13872
+## 7    2.944927 -6.357326               ミキ   90  49.08818
+## 8    1.664326  9.348709     トム・ブラウン   50  90.16834
+## 9   11.982873 -2.594123         霜降り明星   70 150.31871
+## 10  10.286466 -3.244500               和牛   85 116.33816</code></pre>
+<pre class="r"><code>## 回帰分析で係数を算出
+result.lm &lt;- lm(Pref~XX+X1+X2,data=PrefData)
+summary(result.lm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Pref ~ XX + X1 + X2, data = PrefData)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -18.035  -4.439   1.397   3.428  20.445 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 79.75528    7.67343  10.394 4.65e-05 ***
+## XX          -0.05087    0.06996  -0.727    0.494    
+## X1           0.59038    0.48553   1.216    0.270    
+## X2          -0.86811    0.84991  -1.021    0.346    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 12.7 on 6 degrees of freedom
+## Multiple R-squared:  0.3955, Adjusted R-squared:  0.09322 
+## F-statistic: 1.308 on 3 and 6 DF,  p-value: 0.3554</code></pre>
+<pre class="r"><code>## 係数を使って計算
+Ideal &lt;- c(-0.5*0.590379/(-0.05087315),-0.5*(-0.8681056)/(-0.05087315))
+
+## 描画
+PrefData %&gt;% 
+  ggplot(aes(x=X1,y=X2,label=Player)) + geom_point() + 
+  xlim(-15,15) + ylim(-15,15) +   geom_text_repel(family= &quot;HiraKakuProN-W3&quot;) +
+  geom_point(aes(x=Ideal[1],y=Ideal[2],color=&quot;red&quot;))</code></pre>
+<p><img src="lesson2_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+</div>
+<div id="abelson-map" class="section level2">
+<h2>Abelson mapの例</h2>
+<div id="abelson-map-1" class="section level3">
+<h3>Abelson mapもパッケージがないので自作</h3>
+<pre class="r"><code># 自作関数Abelson.map
+Abelson.map &lt;- function(dat,locations){
+  z &lt;- double()
+  X &lt;- dat[,1]
+  Y &lt;- dat[,2]
+  P &lt;- dat[,3]
+  un &lt;- matrix(1,nrow(locations),1,)
+  Xs &lt;- un %*% X
+  Ys &lt;- un %*% Y
+  dm &lt;- ((locations[,1]-Xs)^2+(locations[,2]-Ys)^2+1)
+  V &lt;- t(P %*% (1/t(dm)))
+  xx &lt;- sort(unique(locations[,1]))
+  nx &lt;- length(xx)
+  yy &lt;- sort(unique(locations[,2]))
+  ny &lt;- length(yy)
+  values &lt;- matrix(V,ncol=ny)
+  ret &lt;- structure(list(x=xx,y=yy,valence=values))
+  return(ret)
+}</code></pre>
+</div>
+<div id="section-1" class="section level3">
+<h3>適用例</h3>
+<pre class="r"><code>##　空間全体の座標を作成
+loc &lt;- expand.grid(seq(-15,15,0.1),seq(-15,15,0.1))
+## x,y,Vの座標をデータとする
+result.MDS2$points %&gt;% data.frame %&gt;% 
+  # 個人の選好を追加
+  mutate(Pref=c(70,80,85,90,70,60,90,50,70,85)-75) -&gt; abDat
+ab &lt;- Abelson.map(abDat,loc)
+image(x=ab$x, y=ab$y,z=ab$valence)
+contour(x=ab$x,y=ab$y,z=ab$valence,add=TRUE,drawlabels=T)
+par(family = &quot;HiraKakuProN-W3&quot;)
+text(result.MDS2$points,rownames(result.MDS2$points))</code></pre>
+<p><img src="lesson2_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+</div>
+<div id="mds" class="section level2">
+<h2>非対称MDSの世界</h2>
+<div id="hfm" class="section level3">
+<h3>HFMの場合</h3>
+<pre class="r"><code>Asym &lt;- matrix(c(0,1,1,7,1,0,1,7,7,7,0,1,1,1,7,0),nrow=4,byrow=T)
+# 非対称行列
+Asym</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    0    1    1    7
+## [2,]    1    0    1    7
+## [3,]    7    7    0    1
+## [4,]    1    1    7    0</code></pre>
+<pre class="r"><code># 対称部
+(Asym+t(Asym))/2</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    0    1    4    4
+## [2,]    1    0    4    4
+## [3,]    4    4    0    4
+## [4,]    4    4    4    0</code></pre>
+<pre class="r"><code># 歪対称部
+(Asym-t(Asym))/2</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    0    0   -3    3
+## [2,]    0    0   -3    3
+## [3,]    3    3    0   -3
+## [4,]   -3   -3    3    0</code></pre>
+<pre class="r"><code>###############################
+# HFM
+#
+hfm&lt;-function(data)
+{
+  if(!is.matrix(data))            #行列形式でなければ行列形式にしてしまう
+    data &lt;- as.matrix(data)
+  if(ncol(data)!=nrow(data))      #正方行列かどうかのチェック
+    stop(&quot;data is not a square matrix&quot;)
+  
+  #エルミート化
+  s &lt;- (data+t(data))/2
+  sk &lt;- (data-t(data))/2
+  Her &lt;- matrix(complex(re=s,im=sk),ncol=ncol(s))
+  rownames(Her) &lt;- colnames(data)
+  colnames(Her) &lt;- colnames(data)
+  
+  #固有値分解
+  eval &lt;- eigen(Her)$values
+  evec &lt;-eigen(Her)$vectors
+  rownames(evec) &lt;- colnames(data)
+  #絶対値の順に並べ替え
+  od &lt;- abs(eval)
+  eval &lt;- eval[order(od,decreasing=TRUE)]
+  evec &lt;- evec[,order(od,decreasing=TRUE)]
+  #寄与率の算出
+  gof   &lt;-eval*eval / (t(eval)%*%eval) 
+  
+  return(list(Hermitian =Her ,Eigen=eval,GOF=gof,Vecs=evec))
+  
+}
+
+hfm.plot &lt;-function(data,dim,Xlim=c(-1,1),Ylim=c(-1,1))
+{
+  plot(data$Vecs[,dim],
+       main=paste(&quot;Dim&quot;, dim, &quot;with Eigenvalue&quot; ,round(data$Eigen[dim],3)),
+       xlab=&quot;real&quot;,    #Xラベル
+       ylab=&quot;imag&quot;,  #Yラベル
+       xlim=Xlim,  #X範囲
+       ylim=Ylim,  #Y範囲
+       axes=F)
+  axis(1, pos = 0, at = -3:3, adj = 0, col = 1) #  X 軸を描く
+  axis(2, pos = 0, at = -3:3, adj = 1, las = 2) #  Y 軸を描く
+  for( i in seq(along = data$Vecs[,dim]))
+    arrows(0,0,Re(data$Vecs[i,dim]),Im(data$Vecs[i,dim]))
+  text(data$Vecs[,dim],rownames(data$Vecs))
+}</code></pre>
+</div>
+<div id="section-2" class="section level3">
+<h3>自作関数を使っての実践</h3>
+<pre class="r"><code>result &lt;- hfm(Asym)</code></pre>
+<pre><code>## Warning in eval * eval/(t(eval) %*% eval): Recycling array of length 1 in vector-array arithmetic is deprecated.
+##   Use c() or as.vector() instead.</code></pre>
+<pre class="r"><code>result</code></pre>
+<pre><code>## $Hermitian
+##      [,1] [,2] [,3] [,4]
+## [1,] 0+0i 1+0i 4-3i 4+3i
+## [2,] 1+0i 0+0i 4-3i 4+3i
+## [3,] 4+3i 4+3i 0+0i 4-3i
+## [4,] 4-3i 4-3i 4+3i 0+0i
+## 
+## $Eigen
+## [1] -11.450082  10.829026   1.621056  -1.000000
+## 
+## $GOF
+## [1] 0.520255466 0.465348410 0.010427870 0.003968254
+## 
+## $Vecs
+##                       [,1]                  [,2]                  [,3]
+## [1,] -0.4268213+0.0000000i -0.4742193+0.0000000i  0.3048600+0.0000000i
+## [2,] -0.4268213+0.0000000i -0.4742193+0.0000000i  0.3048600-0.0000000i
+## [3,]  0.3121606+0.4694458i -0.5172090-0.0872403i -0.3674923+0.5215456i
+## [4,]  0.3121606-0.4694458i -0.5172090+0.0872403i -0.3674923-0.5215456i
+##                             [,4]
+## [1,] -7.071068e-01+0.000000e+00i
+## [2,]  7.071068e-01-0.000000e+00i
+## [3,] -3.471326e-17+2.759175e-16i
+## [4,]  6.757472e-18-2.621481e-16i</code></pre>
+<pre class="r"><code>hfm.plot(result,dim=1,Xlim=c(-0.5,0.5),Ylim=c(-0.5,0.5))</code></pre>
+<p><img src="lesson2_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

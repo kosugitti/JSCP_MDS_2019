@@ -1,0 +1,136 @@
+---
+title: "Lesson1"
+output: html_document
+---
+
+```{r libraries,echo=T,include=T}
+# 必須ツール
+library(tidyverse)
+# ラベルの重複を避けるパッケージ
+library(ggrepel)
+# マカーの呪文
+old = theme_set(theme_gray(base_family = "HiraKakuProN-W3"))
+```
+
+## 具体例
+
+ヨーロッパ都市間の距離データ(Rのデフォルト)を使います
+
+```{r}
+eurodist
+```
+
+メトリックなMDSで分析
+
+```{r}
+# MDSの関数
+result.MDS1 <- cmdscale(eurodist,k=3)
+# 結果と描画
+result.MDS1 %>% as.data.frame %>% 
+  dplyr::mutate(label=rownames(.)) %>% 
+  ggplot(aes(x=V1,y=V2,label=label))+geom_point()+geom_text_repel()+
+  xlim(-2500,2500)+ylim(-2500,2500)+xlab("dim 1")+ylab("dim2")
+```
+
+南北反転？
+
+```{r}
+# y軸反転
+result.MDS1 %>% as.data.frame %>% 
+  dplyr::mutate(label=rownames(.)) %>% 
+  ggplot(aes(x=V1,y=V2,label=label))+geom_point()+geom_text_repel()+
+  xlim(-2500,2500)+ylim(2500,-2500)+xlab("dim 1")+ylab("dim2")
+```
+
+
+## 距離の関数
+
+サンプルデータ（あやめ）
+```{r}
+iris[,-5] %>% head()
+```
+
+```{r}
+# ユークリッド距離
+iris[,-5] %>% head() %>% dist()
+```
+
+```{r}
+# マンハッタン距離
+iris[,-5] %>% head() %>% dist(method="manhattan")
+```
+```{r}
+# ミンコフスキー距離
+iris[,-5] %>% head() %>% dist(method="minkowski",p=3)
+```
+
+## 非計量MDSの例
+
+### データ；M-1グランプリ2019の採点結果より
+
+```{r}
+M1_2018 <- matrix(c(85,88,88,99,86,87,89,97,93,93,
+                    85,89,92,93,89,82,90,93,98,94,
+                    88,89,94,88,89,84,98,86,97,98,
+                    83,85,90,92,86,80,88,91,94,93,
+                    91,90,92,93,90,91,93,90,96,94,
+                    88,87,89,93,87,84,90,87,93,92,
+                    86,89,91,90,87,86,90,89,91,92),ncol=7)
+row.names(M1_2018) <- c("見取り図",
+                        "スーパーマラドーナ",
+                        "かまいたち",
+                        "ジャルジャル",
+                        "ギャロップ",
+                        "ゆにばーす",
+                        "ミキ",
+                        "トム・ブラウン",
+                        "霜降り明星",
+                        "和牛")
+colnames(M1_2018) <- c("立川志らく",
+                        "塙宣之",
+                        "上沼恵美子",
+                        "松本人志",
+                        "中川礼二",
+                        "オール巨人",
+                        "富澤たけし")
+dist_M1 <- dist(M1_2018)
+# 距離データ表示
+dist_M1
+```
+
+## 分析；isoMDS関数の例
+```{r}
+library(MASS)
+result.MDS2 <- isoMDS(dist_M1,k=2)
+```
+
+### ストレスの減衰
+```{r}
+ST <- c()
+for(i in 1:9){
+  ST[i] <- isoMDS(dist_M1,k=i)$stress
+}
+plot(ST,type="b")
+```
+
+### 結果
+```{r}
+result.MDS2$points %>% as.data.frame %>% 
+  dplyr::mutate(label=rownames(.)) %>% 
+  ggplot(aes(x=V1,y=V2,label=label))+geom_point()+
+  geom_text_repel(family = "HiraKakuProN-W3")+
+  xlim(-15,15) + ylim(-15,15)+
+  xlab("dim 1")+ylab("dim2") 
+```
+
+
+### 列データのMDS
+```{r}
+result.MDS3 <- dist(t(M1_2018)) %>% isoMDS()
+result.MDS3$points %>% as.data.frame %>% 
+  dplyr::mutate(label=rownames(.)) %>% 
+  ggplot(aes(x=V1,y=V2,label=label))+geom_point()+
+  geom_text_repel(family = "HiraKakuProN-W3")+
+  xlim(-12,12) + ylim(-12,12)+
+  xlab("dim 1")+ylab("dim2") 
+```
