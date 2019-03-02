@@ -23,3 +23,8 @@ output: html_document
 + 個人差を表現する方法（INDSCAL） 
 + 地図に情報を描き加える方法（PREFMAP, Abelson Mappingなど） 
 + 非対称関係に拡張する方法（HFM, Asymmetric von Mises Scalingなど） 
+
+### 使用するデータ
+
++ [こちらからまとめてzipファイルをダウンロードできます。](sampleData.zip)
+
