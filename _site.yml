@@ -3,9 +3,9 @@ navbar:
   title: "第一回MDSの巻"
   left:
     - text: "導入"
-      href: Lesson1.html
+      href: lesson1.html
     - text: "応用"
-      href: Lesson2.html
+      href: lesson2.html
       
 output:
   html_document:
