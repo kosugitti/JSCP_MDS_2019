@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
 
 <title>Lesson1</title>
 
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -26,12 +36,16 @@
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -44,38 +58,11 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="site_style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -83,13 +70,8 @@ h6 {
   margin-left: auto;
   margin-right: auto;
 }
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -103,40 +85,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -164,7 +119,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -176,7 +131,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -187,14 +142,25 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -204,7 +170,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -240,6 +205,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -252,48 +218,9 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -307,6 +234,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -342,8 +275,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -353,8 +284,18 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -391,7 +332,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -402,85 +343,85 @@ div.tocify {
 
 <pre class="r"><code># 必須ツール
 library(tidyverse)</code></pre>
-<pre><code>## ─ Attaching packages ────</code></pre>
-<pre><code>## ✔ ggplot2 3.1.0       ✔ purrr   0.3.0  
-## ✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
-## ✔ tidyr   0.8.2       ✔ stringr 1.4.0  
-## ✔ readr   1.3.1       ✔ forcats 0.4.0</code></pre>
-<pre><code>## ─ Conflicts ─────────
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## ─ Attaching packages ──────────────────── tidyverse 1.3.1 ─</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.1.2     ✓ dplyr   1.0.6
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.1</code></pre>
+<pre><code>## ─ Conflicts ───────────────────── tidyverse_conflicts() ─
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code># ラベルの重複を避けるパッケージ
 library(ggrepel)
 # マカーの呪文
 old = theme_set(theme_gray(base_family = &quot;HiraKakuProN-W3&quot;))</code></pre>
-<div id="section" class="section level2">
+<div id="具体例" class="section level2">
 <h2>具体例</h2>
 <p>ヨーロッパ都市間の距離データ(Rのデフォルト)を使います</p>
 <pre class="r"><code>eurodist</code></pre>
-<pre><code>##                 Athens Barcelona Brussels Calais Cherbourg Cologne
-## Barcelona         3313                                            
-## Brussels          2963      1318                                  
-## Calais            3175      1326      204                         
-## Cherbourg         3339      1294      583    460                  
-## Cologne           2762      1498      206    409       785        
-## Copenhagen        3276      2218      966   1136      1545     760
-## Geneva            2610       803      677    747       853    1662
-## Gibraltar         4485      1172     2256   2224      2047    2436
-## Hamburg           2977      2018      597    714      1115     460
-## Hook of Holland   3030      1490      172    330       731     269
-## Lisbon            4532      1305     2084   2052      1827    2290
-## Lyons             2753       645      690    739       789     714
-## Madrid            3949       636     1558   1550      1347    1764
-## Marseilles        2865       521     1011   1059      1101    1035
-## Milan             2282      1014      925   1077      1209     911
-## Munich            2179      1365      747    977      1160     583
-## Paris             3000      1033      285    280       340     465
-## Rome               817      1460     1511   1662      1794    1497
-## Stockholm         3927      2868     1616   1786      2196    1403
-## Vienna            1991      1802     1175   1381      1588     937
-##                 Copenhagen Geneva Gibraltar Hamburg Hook of Holland Lisbon
-## Barcelona                                                                 
-## Brussels                                                                  
-## Calais                                                                    
-## Cherbourg                                                                 
-## Cologne                                                                   
-## Copenhagen                                                                
-## Geneva                1418                                                
-## Gibraltar             3196   1975                                         
-## Hamburg                460   1118      2897                               
-## Hook of Holland        269    895      2428     550                       
-## Lisbon                2971   1936       676    2671            2280       
-## Lyons                 1458    158      1817    1159             863   1178
-## Madrid                2498   1439       698    2198            1730    668
-## Marseilles            1778    425      1693    1479            1183   1762
-## Milan                 1537    328      2185    1238            1098   2250
-## Munich                1104    591      2565     805             851   2507
-## Paris                 1176    513      1971     877             457   1799
-## Rome                  2050    995      2631    1751            1683   2700
-## Stockholm              650   2068      3886     949            1500   3231
-## Vienna                1455   1019      2974    1155            1205   2937
-##                 Lyons Madrid Marseilles Milan Munich Paris Rome Stockholm
-## Barcelona                                                                
-## Brussels                                                                 
-## Calais                                                                   
-## Cherbourg                                                                
-## Cologne                                                                  
-## Copenhagen                                                               
-## Geneva                                                                   
-## Gibraltar                                                                
-## Hamburg                                                                  
-## Hook of Holland                                                          
-## Lisbon                                                                   
-## Lyons                                                                    
-## Madrid           1281                                                    
-## Marseilles        320   1157                                             
-## Milan             328   1724        618                                  
-## Munich            724   2010       1109   331                            
-## Paris             471   1273        792   856    821                     
-## Rome             1048   2097       1011   586    946  1476               
-## Stockholm        2108   3188       2428  2187   1754  1827 2707          
-## Vienna           1157   2409       1363   898    428  1249 1209      2105</code></pre>
+<pre><code>##                 Athens Barcelona Brussels Calais Cherbourg Cologne Copenhagen
+## Barcelona         3313                                                       
+## Brussels          2963      1318                                             
+## Calais            3175      1326      204                                    
+## Cherbourg         3339      1294      583    460                             
+## Cologne           2762      1498      206    409       785                   
+## Copenhagen        3276      2218      966   1136      1545     760           
+## Geneva            2610       803      677    747       853    1662       1418
+## Gibraltar         4485      1172     2256   2224      2047    2436       3196
+## Hamburg           2977      2018      597    714      1115     460        460
+## Hook of Holland   3030      1490      172    330       731     269        269
+## Lisbon            4532      1305     2084   2052      1827    2290       2971
+## Lyons             2753       645      690    739       789     714       1458
+## Madrid            3949       636     1558   1550      1347    1764       2498
+## Marseilles        2865       521     1011   1059      1101    1035       1778
+## Milan             2282      1014      925   1077      1209     911       1537
+## Munich            2179      1365      747    977      1160     583       1104
+## Paris             3000      1033      285    280       340     465       1176
+## Rome               817      1460     1511   1662      1794    1497       2050
+## Stockholm         3927      2868     1616   1786      2196    1403        650
+## Vienna            1991      1802     1175   1381      1588     937       1455
+##                 Geneva Gibraltar Hamburg Hook of Holland Lisbon Lyons Madrid
+## Barcelona                                                                   
+## Brussels                                                                    
+## Calais                                                                      
+## Cherbourg                                                                   
+## Cologne                                                                     
+## Copenhagen                                                                  
+## Geneva                                                                      
+## Gibraltar         1975                                                      
+## Hamburg           1118      2897                                            
+## Hook of Holland    895      2428     550                                    
+## Lisbon            1936       676    2671            2280                    
+## Lyons              158      1817    1159             863   1178             
+## Madrid            1439       698    2198            1730    668  1281       
+## Marseilles         425      1693    1479            1183   1762   320   1157
+## Milan              328      2185    1238            1098   2250   328   1724
+## Munich             591      2565     805             851   2507   724   2010
+## Paris              513      1971     877             457   1799   471   1273
+## Rome               995      2631    1751            1683   2700  1048   2097
+## Stockholm         2068      3886     949            1500   3231  2108   3188
+## Vienna            1019      2974    1155            1205   2937  1157   2409
+##                 Marseilles Milan Munich Paris Rome Stockholm
+## Barcelona                                                   
+## Brussels                                                    
+## Calais                                                      
+## Cherbourg                                                   
+## Cologne                                                     
+## Copenhagen                                                  
+## Geneva                                                      
+## Gibraltar                                                   
+## Hamburg                                                     
+## Hook of Holland                                             
+## Lisbon                                                      
+## Lyons                                                       
+## Madrid                                                      
+## Marseilles                                                  
+## Milan                  618                                  
+## Munich                1109   331                            
+## Paris                  792   856    821                     
+## Rome                  1011   586    946  1476               
+## Stockholm             2428  2187   1754  1827 2707          
+## Vienna                1363   898    428  1249 1209      2105</code></pre>
 <p>メトリックなMDSで分析</p>
 <pre class="r"><code># MDSの関数
 result.MDS1 &lt;- cmdscale(eurodist,k=3)
@@ -498,7 +439,7 @@ result.MDS1 %&gt;% as.data.frame %&gt;%
   xlim(-2500,2500)+ylim(2500,-2500)+xlab(&quot;dim 1&quot;)+ylab(&quot;dim2&quot;)</code></pre>
 <p><img src="lesson1_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
-<div id="section-1" class="section level2">
+<div id="距離の関数" class="section level2">
 <h2>距離の関数</h2>
 <p>サンプルデータ（あやめ）</p>
 <pre class="r"><code>iris[,-5] %&gt;% head()</code></pre>
@@ -577,9 +518,9 @@ iris[,-5] %&gt;% head() %&gt;% dist(method=&quot;minkowski&quot;,p=3)</code></pr
 ## 5 0.1259921 0.6009245 0.4514357 0.5748897          
 ## 6 0.5013298 0.9615398 0.9117793 1.0131594 0.5013298</code></pre>
 </div>
-<div id="mds" class="section level2">
+<div id="非計量mdsの例" class="section level2">
 <h2>非計量MDSの例</h2>
-<div id="m-12019" class="section level3">
+<div id="データm-1グランプリ2019の採点結果より" class="section level3">
 <h3>データ；M-1グランプリ2019の採点結果より</h3>
 <pre class="r"><code>M1_2018 &lt;- matrix(c(85,88,88,99,86,87,89,97,93,93,
                     85,89,92,93,89,82,90,93,98,94,
@@ -618,36 +559,26 @@ dist_M1</code></pre>
 ## トム・ブラウン     16.941074          11.916375  12.609520     7.416198
 ## 霜降り明星         22.583180          18.083141  10.862780    12.489996
 ## 和牛               20.149442          15.652476   8.246211    12.000000
-##                    ギャロップ ゆにばーす      ミキ トム・ブラウン
-## スーパーマラドーナ                                               
-## かまいたち                                                       
-## ジャルジャル                                                     
-## ギャロップ                                                       
-## ゆにばーす          11.045361                                    
-## ミキ                11.045361  19.595918                         
-## トム・ブラウン      13.228757  19.104973 15.652476               
-## 霜降り明星          18.601075  28.071338 11.661904      15.716234
-## 和牛                16.431677  25.573424  8.124038      14.662878
-##                    霜降り明星
-## スーパーマラドーナ           
-## かまいたち                   
-## ジャルジャル                 
-## ギャロップ                   
-## ゆにばーす                   
-## ミキ                         
-## トム・ブラウン               
-## 霜降り明星                   
-## 和牛                 4.898979</code></pre>
+##                    ギャロップ ゆにばーす      ミキ トム・ブラウン 霜降り明星
+## スーパーマラドーナ                                                          
+## かまいたち                                                                  
+## ジャルジャル                                                                
+## ギャロップ                                                                  
+## ゆにばーす          11.045361                                               
+## ミキ                11.045361  19.595918                                    
+## トム・ブラウン      13.228757  19.104973 15.652476                          
+## 霜降り明星          18.601075  28.071338 11.661904      15.716234           
+## 和牛                16.431677  25.573424  8.124038      14.662878   4.898979</code></pre>
 </div>
 </div>
-<div id="isomds" class="section level2">
+<div id="分析isomds関数の例" class="section level2">
 <h2>分析；isoMDS関数の例</h2>
 <pre class="r"><code>library(MASS)</code></pre>
 <pre><code>## 
-## Attaching package: &#39;MASS&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+##  次のパッケージを付け加えます: &#39;MASS&#39;</code></pre>
+<pre><code>##  以下のオブジェクトは &#39;package:dplyr&#39; からマスクされています: 
 ## 
-##     select</code></pre>
+##      select</code></pre>
 <pre class="r"><code>result.MDS2 &lt;- isoMDS(dist_M1,k=2)</code></pre>
 <pre><code>## initial  value 1.421320 
 ## iter   5 value 0.721192
@@ -662,7 +593,7 @@ dist_M1</code></pre>
 ## iter  50 value 0.013671
 ## final  value 0.013671 
 ## stopped after 50 iterations</code></pre>
-<div id="section-2" class="section level3">
+<div id="ストレスの減衰" class="section level3">
 <h3>ストレスの減衰</h3>
 <pre class="r"><code>ST &lt;- c()
 for(i in 1:9){
@@ -709,7 +640,7 @@ for(i in 1:9){
 <pre class="r"><code>plot(ST,type=&quot;b&quot;)</code></pre>
 <p><img src="lesson1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
-<div id="section-3" class="section level3">
+<div id="結果" class="section level3">
 <h3>結果</h3>
 <pre class="r"><code>result.MDS2$points %&gt;% as.data.frame %&gt;% 
   dplyr::mutate(label=rownames(.)) %&gt;% 
@@ -719,7 +650,7 @@ for(i in 1:9){
   xlab(&quot;dim 1&quot;)+ylab(&quot;dim2&quot;) </code></pre>
 <p><img src="lesson1_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
-<div id="mds-1" class="section level3">
+<div id="列データのmds" class="section level3">
 <h3>列データのMDS</h3>
 <pre class="r"><code>result.MDS3 &lt;- dist(t(M1_2018)) %&gt;% isoMDS()</code></pre>
 <pre><code>## initial  value 11.739729 
@@ -750,13 +681,59 @@ for(i in 1:9){
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

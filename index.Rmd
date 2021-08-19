@@ -24,11 +24,11 @@ output: html_document
 + 地図に情報を描き加える方法（PREFMAP, Abelson Mappingなど） 
 + 非対称関係に拡張する方法（HFM, Asymmetric von Mises Scalingなど） 
 
-#### 発表原稿
+### 発表原稿
 
-研究会の発表内容が，[日本認知心理学会テクニカルレポート](http://cogpsy.jp/wp/wp-content/uploads/COGPSY-TR-002.pdf)にまとめられています(当日の発表内容をテープ起こしした原稿です)。
++ 研究会の発表内容が，[日本認知心理学会テクニカルレポート](http://cogpsy.jp/wp/wp-content/uploads/COGPSY-TR-002.pdf)にまとめられています(当日の発表内容をテープ起こしした原稿です)。
 
-また発表に用いた[スライドも公開](https://www.slideshare.net/KojiKosugi/mds20190303-134264558)しています。
++ また発表に用いた[スライドも公開](https://www.slideshare.net/KojiKosugi/mds20190303-134264558)しています。
 
 ### 使用するデータ
 
